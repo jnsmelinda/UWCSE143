@@ -53,6 +53,33 @@ public class LetterInventory {
         return sb.toString();
     }
 
+    public LetterInventory add(LetterInventory other){
+        LetterInventory result = new LetterInventory("");
+        for (int i = 0; i < other.COUNTER.length; i++) {
+            if (other.COUNTER[i] > 0 || this.COUNTER[i] > 0){
+                result.COUNTER[i] = (other.COUNTER[i] + this.COUNTER[i]);
+            }
+        }
+        result.size = this.size + other.size;
+
+        return result;
+    }
+
+    public LetterInventory subtract(LetterInventory other){
+        LetterInventory result = new LetterInventory("");
+        for (int i = 0; i < other.COUNTER.length; i++){
+            if (this.COUNTER[i] >= other.COUNTER[i]){
+                result.COUNTER[i] = this.COUNTER[i] - other.COUNTER[i];
+            }
+            else {
+                return null;
+            }
+        }
+        result.size = this.size - other.size;
+
+        return result;
+    }
+
     private int getIndex(char letter){
         return Character.getNumericValue(letter) - 10;
     }
@@ -60,5 +87,4 @@ public class LetterInventory {
     private void getNewSize(char letter, int value) {
         size = (size - get(letter)) + value;
     }
-
 }
