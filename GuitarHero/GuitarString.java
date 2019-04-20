@@ -7,9 +7,9 @@ public class GuitarString {
     public final double ENERGY_DECAY_FACTOR = 0.996;
     private Queue<Double> ringBuffer;
 
-    public GuitarString(double frequency) throws IllegalAccessException {
+    public GuitarString(double frequency) throws IllegalArgumentException {
         if (frequency < 0) {
-            throw new IllegalAccessException("frequency < 0");
+            throw new IllegalArgumentException("frequency < 0");
         }
 
         ringBuffer = new LinkedList<>();
@@ -20,13 +20,13 @@ public class GuitarString {
         }
 
         if (ringBuffer.size() < 2) {
-            throw new IllegalAccessException("ringbuffer size < 2");
+            throw new IllegalArgumentException("ringbuffer size < 2");
         }
     }
 
-    GuitarString(double[] init) throws IllegalAccessException {
+    GuitarString(double[] init) throws IllegalArgumentException {
         if (init.length < 2) {
-            throw new IllegalAccessException("array size < 2");
+            throw new IllegalArgumentException("array size < 2");
         }
 
         ringBuffer = new LinkedList<>();
