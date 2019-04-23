@@ -228,5 +228,3 @@ You can have jGRASP show you the exact line by going to: Settings/Compiler Setti
 to "Compile" and type in:
 
 -Xlint:unchecked
-
-You should name your files GuitarString.java and Guitar37.java and you should turn them in electronically from the “Homework” tab on the class web page.
