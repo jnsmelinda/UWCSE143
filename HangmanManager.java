@@ -4,7 +4,6 @@ public class HangmanManager {
 
     private Set<Character> letters;
     private int guessCounter;
-
     private String pattern;
     private Set<String> words;
 
@@ -17,9 +16,14 @@ public class HangmanManager {
         if (max < 0) {
             throw new IllegalArgumentException("max is less than 0");
         }
-
         pattern = initialPattern(length);
-        words = new TreeSet<>(dictionary);
+        words = new TreeSet<>();
+
+        for (String element : dictionary) {
+            if (element.length() == length)
+            words.add(element);
+        }
+
         guessCounter = max - letters.size();
     }
 
@@ -47,15 +51,15 @@ public class HangmanManager {
         Map<String, Set<String>> currentMap = new TreeMap<>();
         validate(guess);
 
-        currentMap = makeGoups(guess, currentMap);
+        currentMap = makeGroups(guess, currentMap);
 
         getBiggestSet(currentMap);
         if (currentMap.keySet().size() > 1) {
             keepOnePair(currentMap);
         }
 
-        pattern = currentMap.entrySet().iterator().next().getKey();
         words = currentMap.entrySet().iterator().next().getValue();
+        pattern = currentMap.entrySet().iterator().next().getKey();
 
         int appearances = updateGame(guess);
 
@@ -101,13 +105,13 @@ public class HangmanManager {
     private void getBiggestSet(Map<String, Set<String>> currentMap) {
         Iterator<Map.Entry<String, Set<String>>> iterator = currentMap.entrySet().iterator();
         while (iterator.hasNext()) {
-            if (iterator.next().getValue().size() != biggestSize(currentMap)) {
+            if (iterator.next().getValue().size() != biggestValue(currentMap)) {
                 iterator.remove();
             }
         }
     }
 
-    private int biggestSize(Map<String, Set<String>> map) {
+    private int biggestValue(Map<String, Set<String>> map) {
         int max = 0;
         for (String element : map.keySet()) {
             if (map.get(element).size() > max) {
@@ -118,7 +122,7 @@ public class HangmanManager {
         return max;
     }
 
-    private Map<String, Set<String>> makeGoups(char guess, Map<String, Set<String>> newMap) {
+    private Map<String, Set<String>> makeGroups(char guess, Map<String, Set<String>> newMap) {
         for (String element : words) {
             String currentPattern = createPattern(element, guess);
             if (!newMap.containsKey(currentPattern)) {
