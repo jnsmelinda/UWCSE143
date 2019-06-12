@@ -4,35 +4,56 @@ public class AnagramSolver {
     private List<String> dictionary;
 
     public AnagramSolver(List<String> list) {
-        this.dictionary = new ArrayList<>();
-        dictionary.addAll(list);
+        this.dictionary = list;
     }
 
     public void print(String s, int max) {
-        Map map = new HashMap<String, Set<String>>();
-        reduceDictionary(s, map);
-        System.out.println(map);
+        print(new LetterInventory(s), max, new ArrayList(), s, reduceDictionary(s));
     }
 
-    private boolean contains(LetterInventory word, LetterInventory other) {
-        return (word.subtract(other) != null);
-    }
-
-    private void reduceDictionary(String s, Map<String, Set<String>> map) {
-        LetterInventory word = new LetterInventory(s);
-        for(String str : dictionary) {
-            if (contains(word, new LetterInventory(str))) {
-                addToMap(s, map, str);
+    private void print(LetterInventory inventory, int max, List<String> anagram, String s, List<String> dictionary) {
+        if (max == 0 && inventory.isEmpty()) {
+            printAnagram(anagram, s);
+        }
+        else if (anagram.size() <= max && inventory.isEmpty()) {
+            printAnagram(anagram, s);
+        }
+        else {
+            for (String word : dictionary) {
+                LetterInventory result = inventory.subtract(new LetterInventory(word));
+                if (result != null) {
+                    anagram.add(word);
+                    print(result, max, anagram, s, dictionary);
+                    anagram.remove(word);
+                }
             }
         }
     }
 
-    private void addToMap(String s, Map<String, Set<String>> map, String str) {
-        if (!(map.containsKey(s))) {
-            Set<String> value = new TreeSet<>();
-            value.add(str);
-            map.put(s, value);
+    private List reduceDictionary(String s) {
+        List newDictionary = new ArrayList();
+        for (String element : this.dictionary) {
+            LetterInventory result = new LetterInventory(s).subtract(new LetterInventory(element));
+            if (result != null) {
+                newDictionary.add(element);
+            }
         }
-        map.get(s).add(str);
+
+        return newDictionary;
     }
+
+    private void printAnagram(List<String> anagram, String s) {
+//        int counter = 0;
+//        for (String st : anagram) {
+//            counter += st.length();
+//            if (counter == new LetterInventory(s).size()) {
+//                System.out.println(anagram);
+//            }
+//        }
+
+        if (new LetterInventory(s).size() == anagram.stream().mapToInt(String::length).sum()) {
+            System.out.println(anagram);
+        }
+    }
+
 }
