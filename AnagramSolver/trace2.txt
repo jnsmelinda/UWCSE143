@@ -1,0 +1,170 @@
+explore [beegghorsu]
+    bee
+        choose bee
+        explore [gghorsu]
+            bee
+            go
+                choose go
+                explore [ghrsu]
+                    bee
+                    go
+                    gush
+                        choose gush
+                        explore [r]
+                            bee
+                            go
+                            gush
+                            shrug
+                        unchoose
+                    shrug
+                        choose shrug
+                        explore []
+                            print [bee, go, shrug]
+                        unchoose
+                unchoose
+            gush
+                choose gush
+                explore [gor]
+                    bee
+                    go
+                        choose go
+                        explore [r]
+                            bee
+                            go
+                            gush
+                            shrug
+                        unchoose
+                    gush
+                    shrug
+                unchoose
+            shrug
+                choose shrug
+                explore [go]
+                    bee
+                    go
+                        choose go
+                        explore []
+                            print [bee, shrug, go]
+                        unchoose
+                    gush
+                    shrug
+                unchoose
+        unchoose
+    go
+        choose go
+        explore [beeghrsu]
+            bee
+                choose bee
+                explore [ghrsu]
+                    bee
+                    go
+                    gush
+                        choose gush
+                        explore [r]
+                            bee
+                            go
+                            gush
+                            shrug
+                        unchoose
+                    shrug
+                        choose shrug
+                        explore []
+                            print [go, bee, shrug]
+                        unchoose
+                unchoose
+            go
+            gush
+                choose gush
+                explore [beer]
+                    bee
+                        choose bee
+                        explore [r]
+                            bee
+                            go
+                            gush
+                            shrug
+                        unchoose
+                    go
+                    gush
+                    shrug
+                unchoose
+            shrug
+                choose shrug
+                explore [bee]
+                    bee
+                        choose bee
+                        explore []
+                            print [go, shrug, bee]
+                        unchoose
+                    go
+                    gush
+                    shrug
+                unchoose
+        unchoose
+    gush
+        choose gush
+        explore [beegor]
+            bee
+                choose bee
+                explore [gor]
+                    bee
+                    go
+                        choose go
+                        explore [r]
+                            bee
+                            go
+                            gush
+                            shrug
+                        unchoose
+                    gush
+                    shrug
+                unchoose
+            go
+                choose go
+                explore [beer]
+                    bee
+                        choose bee
+                        explore [r]
+                            bee
+                            go
+                            gush
+                            shrug
+                        unchoose
+                    go
+                    gush
+                    shrug
+                unchoose
+            gush
+            shrug
+        unchoose
+    shrug
+        choose shrug
+        explore [beego]
+            bee
+                choose bee
+                explore [go]
+                    bee
+                    go
+                        choose go
+                        explore []
+                            print [shrug, bee, go]
+                        unchoose
+                    gush
+                    shrug
+                unchoose
+            go
+                choose go
+                explore [bee]
+                    bee
+                        choose bee
+                        explore []
+                            print [shrug, go, bee]
+                        unchoose
+                    go
+                    gush
+                    shrug
+                unchoose
+            gush
+            shrug
+        unchoose
+        
