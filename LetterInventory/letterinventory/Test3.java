@@ -9,7 +9,7 @@ public class Test3 {
     public static void main(String[] args) {
         Scanner input = null;
         try {
-            input = new Scanner(new File("test3.txt"));
+            input = new Scanner(new File("letterInventory/test3.txt"));
         } catch (FileNotFoundException e) {
             System.out.println("You must copy test3.txt to this directory" +
                                " before running the testing program.");

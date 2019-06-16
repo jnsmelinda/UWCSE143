@@ -10,7 +10,7 @@ public class TestString {
     public static void main(String[] args) {
         Scanner input = null;
         try {
-            input = new Scanner(new File("string.txt"));
+            input = new Scanner(new File("guitarhero/string.txt"));
         } catch (FileNotFoundException e) {
             System.out.println("You must copy string.txt to this directory" +
                                " before running the testing program.");
