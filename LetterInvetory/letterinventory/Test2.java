@@ -1,119 +1,58 @@
-// This program tests stage 3 of the LetterInventory class.  The program reads
-// from the file test3.txt which has a series of test cases with the correct
+package letterinventory;// This program tests stage 2 of the LetterInventory class.  The program reads
+// from the file test2.txt which has a series of test cases with the correct
 // answers.
 
 import java.util.*;
 import java.io.*;
 
-public class Test3 {
+public class Test2 {
     public static void main(String[] args) {
         Scanner input = null;
         try {
-            input = new Scanner(new File("test3.txt"));
+            input = new Scanner(new File("test2.txt"));
         } catch (FileNotFoundException e) {
-            System.out.println("You must copy test3.txt to this directory" +
+            System.out.println("You must copy test2.txt to this directory" +
                                " before running the testing program.");
             System.exit(1);
         }
+        LetterInventory tester = new LetterInventory("");
+        System.out.println("Starting with empty inventory");
+        check(tester, input);
         while (input.hasNext()) {
-            String s1 = input.nextLine();
-            String s2 = input.nextLine();
-            System.out.println("Testing these two strings:");
-            System.out.println("    i1: \"" + s1 + "\"");
-            System.out.println("    i2: \"" + s2 + "\"");
-            System.out.println("constructing i1 and i2");
-            LetterInventory i1 = null;
-            LetterInventory i2 = null;
+            char ch = input.next().charAt(0);
+            int count = input.nextInt();
+            System.out.println("setting count for " + ch + " to " + count);
             try {
-                i1 = new LetterInventory(s1);
-                i2 = new LetterInventory(s2);
-            } catch (Exception e) {
+                tester.set(ch, count);
+            } catch(Exception e) {
                 System.out.println("failed");
                 System.out.println("    threw exception: " + e);
                 int line = e.getStackTrace()[0].getLineNumber();
                 System.out.println("    in LetterInventory line#" + line);
                 System.exit(1);
             }
-
-            System.out.println("constructing and testing i1.add(i2)");
-            try {
-                LetterInventory test = i1.add(i2);
-                check(test, input);
-            } catch (Exception e) {
-                System.out.println("add failed");
-                System.out.println("    threw exception: " + e);
-                int line = e.getStackTrace()[0].getLineNumber();
-                System.out.println("    in LetterInventory line#" + line);
-                System.exit(1);
-            }
-
-            System.out.println("constructing and testing i2.add(i1)");
-            try {
-                LetterInventory test = i2.add(i1);
-                check(test, input);
-            } catch (Exception e) {
-                System.out.println("add failed");
-                System.out.println("    threw exception: " + e);
-                int line = e.getStackTrace()[0].getLineNumber();
-                System.out.println("    in LetterInventory line#" + line);
-                System.exit(1);
-            }
-
-            System.out.println("constructing and testing i1.subtract(i2)");
-            try {
-                LetterInventory test = i1.subtract(i2);
-                check(test, input);
-            } catch (Exception e) {
-                System.out.println("subtract failed");
-                System.out.println("    threw exception: " + e);
-                int line = e.getStackTrace()[0].getLineNumber();
-                System.out.println("    in LetterInventory line#" + line);
-                System.exit(1);
-            }
-
-            System.out.println("constructing and testing i2.subtract(i1)");
-            try {
-                LetterInventory test = i2.subtract(i1);
-                check(test, input);
-            } catch (Exception e) {
-                System.out.println("subtract failed");
-                System.out.println("    threw exception: " + e);
-                int line = e.getStackTrace()[0].getLineNumber();
-                System.out.println("    in LetterInventory line#" + line);
-                System.exit(1);
-            }
-            if (input.hasNextLine())
-                input.nextLine();  // to skip end-of-line
-            System.out.println();
+            check(tester, input);
         }
         System.out.println("All tests passed.");
     }
 
-    // pre : input file contains a line with correct values for the given
-    //       inventory
+    // pre : input file contains a 2-line test case that contains the state
+    //       that the given inventory should be in after performing the given
+    //       call on get
     // post: reports whether or not test was passed
     public static void check(LetterInventory tester, Scanner input) {
-        String text = input.next();
-        if (text.equals("null")) {
-            if (tester == null) {
-                System.out.println("passed because inventory is null");
-            } else {
-                System.out.println("failed because inventory should be null");
-                System.exit(1);
-            }
-        } else {
-            testToString(tester, input, text);
-            testSize(tester, input);
-            testIsEmpty(tester, input);
-            testGet(tester, input);
-            System.out.println("toString, size, isEmpty, and count all passed");
-        }
-
+        testSize(tester, input);
+        testToString(tester, input);
+        testIsEmpty(tester, input);
+        testGet(tester, input);
+        System.out.println("size, toString, isEmpty, and count all passed");
+        System.out.println();
     }
 
+    // pre : input file contains correct toString
     // post: reports whether or not test was passed
-    public static void testToString(LetterInventory tester, Scanner input,
-                                    String correct) {
+    public static void testToString(LetterInventory tester, Scanner input) {
+        String correct = input.next();
         System.out.println("inventory = " + correct);
         String test = "";
         try {

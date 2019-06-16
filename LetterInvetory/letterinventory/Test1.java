@@ -1,4 +1,4 @@
-// This program tests stage 1 of the LetterInventory class.  The program reads
+package letterinventory;// This program tests stage 1 of the LetterInventory class.  The program reads
 // from the file test1.txt which has a series of test cases with the correct
 // answers.
 

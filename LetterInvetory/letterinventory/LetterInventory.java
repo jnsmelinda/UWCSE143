@@ -1,3 +1,5 @@
+package letterinventory;
+
 public class LetterInventory {
 
     private final int[] COUNTER = new int[26];
