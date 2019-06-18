@@ -72,6 +72,9 @@ public class HangmanManager {
             letters.add(guess);
             guessCounter--;
         }
+        else if (appearances == 0 && guessCounter <= 1) {
+            guessCounter--;
+        }
         else {
             for (String element : words) {
                 createPattern(element, guess);
