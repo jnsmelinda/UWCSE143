@@ -1,18 +1,16 @@
 package questions;
 
 public class QuestionNode {
-    public QuestionNode yesNode, noNode, question;
-    public String text;
+    public QuestionNode yesNode;
+    public QuestionNode noNode;
+    public String question;
+    public String object;
 
-    public QuestionNode(String text) {
-        this(text, null, null, null);
-    }
-
-    public QuestionNode(String text, QuestionNode yesNode, QuestionNode noNode, QuestionNode question) {
-        this.text = text;
+    public QuestionNode(String question, String object, QuestionNode yesNode, QuestionNode noNode) {
         this.yesNode = yesNode;
         this.noNode = noNode;
         this.question = question;
+        this.object = object;
     }
 
 }

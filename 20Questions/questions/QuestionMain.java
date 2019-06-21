@@ -8,7 +8,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class QuestionMain {
-    public static final String QUESTION_FILE = "question.txt";
+    public static final String QUESTION_FILE = "questions/question.txt";
 
     public static void main(String[] args) throws FileNotFoundException {
         System.out.println("Welcome to the cse143 question program.");
