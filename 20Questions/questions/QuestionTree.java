@@ -8,59 +8,85 @@ public class QuestionTree {
     private Scanner console;
 
     public QuestionTree(){
-        root = new QuestionNode(null, "computer", null, null);
+        root = new QuestionNode("computer", null, null);
         console = new Scanner(System.in);
     }
 
     public void read(Scanner input) {
-        while (input.hasNextLine()) {
-            read(root);
+        root = new QuestionNode();
+        read(root, input);
+    }
+
+    private void read(QuestionNode node, Scanner input) {
+        if (input.hasNextLine()) {
+            if (input.nextLine().startsWith("Q:")) {
+                node.data = input.nextLine();
+                node.yesNode = new QuestionNode();
+                node.noNode = new QuestionNode();
+                read(node.yesNode, input);
+                read(node.noNode, input);
+            }
+            else {
+                node.data = input.nextLine();
+            }
         }
     }
 
-    private void read(QuestionNode root) {
-
-    }
-
     public void askQuestions() {
-        root = askQuestions(root);
+        askQuestions(root);
     }
 
-    private QuestionNode askQuestions(QuestionNode subtree) {
+    private void askQuestions(QuestionNode subtree) {
         if (subtree.yesNode == null || subtree.noNode == null) {
-            if (yesTo("Would your object happen to be a " + subtree.object + "?")) {
-                System.out.println("Great, I got it right");
+            if (yesTo("Would your object happen to be a " + subtree.data + "?")) {
+                    System.out.println("Great, I got it right");
             }
             else {
                 addNewQuestion(subtree);
             }
         }
         else {
-            if (yesTo(subtree.question)) {
+            if (yesTo(subtree.data)) {
                 askQuestions(subtree.yesNode);
-            } else if (!yesTo(subtree.question)) {
+            } else {
                 askQuestions(subtree.noNode);
             }
         }
-        return subtree;
     }
 
     public void write(PrintStream printStream) {
-
+        write(printStream, root);
     }
 
-    private void addNewQuestion(QuestionNode subtree) {
+    public void write(PrintStream printStream, QuestionNode subtree) {
+        if (subtree.yesNode == null || subtree.noNode == null) {
+            printStream.println("A:");
+            printStream.println(subtree.data);
+        }
+        else {
+            printStream.println("Q:");
+            printStream.println(subtree.data);
+            write(printStream, subtree.yesNode);
+            write(printStream, subtree.noNode);
+        }
+    }
+
+    private QuestionNode addNewQuestion(QuestionNode subtree) {
         System.out.println("What is the name of your object?");
         String object = console.nextLine();
         System.out.println("Please give me a yes/no question that\ndistinguishes between your object\n" +
                 "and mine--> ");
         String question = console.nextLine();
+        String peviousObject = subtree.data;
         if (yesTo("And what is the answer for your object?")) {
-            subtree.yesNode = new QuestionNode(question, object, null, null);
+            subtree.noNode = new QuestionNode(object, null, null);
         }
         else {
-            subtree.noNode = new QuestionNode(question, object, null, null);
+            subtree.noNode = new QuestionNode(object, null, null);
         }
+        subtree.data = question;
+
+        return subtree;
     }
 
     public boolean yesTo(String prompt) {
@@ -73,5 +99,20 @@ public class QuestionTree {
         }
 
         return response.equals("y");
+    }
+
+    public void printPreorder() {
+        System.out.print("preorder:");
+        printPreorder(root);
+        System.out.println();
+    }
+
+    // post: prints in preorder the tree with given root
+    private void printPreorder(QuestionNode subtree) {
+        if (subtree != null) {
+            System.out.print(" " + subtree.data);
+            printPreorder(subtree.yesNode);
+            printPreorder(subtree.noNode);
+        }
     }
 }
