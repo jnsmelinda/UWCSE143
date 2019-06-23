@@ -33,25 +33,64 @@ public class QuestionTree {
     }
 
     public void askQuestions() {
-        askQuestions(root);
+        askQuestions(root, null);
     }
 
-    private void askQuestions(QuestionNode subtree) {
-        if (subtree.yesNode == null || subtree.noNode == null) {
-            if (yesTo("Would your object happen to be a " + subtree.data + "?")) {
+    private void askQuestions(QuestionNode node, QuestionNode parent) {
+        if (node.yesNode == null || node.noNode == null) {
+            if (yesTo("Would your object happen to be a " + node.data + "?")) {
                     System.out.println("Great, I got it right");
             }
             else {
-                addNewQuestion(subtree);
+                addNewQuestion(node, parent);
             }
         }
         else {
-            if (yesTo(subtree.data)) {
-                askQuestions(subtree.yesNode);
+            if (yesTo(node.data)) {
+                askQuestions(node.yesNode, node);
             } else {
-                askQuestions(subtree.noNode);
+                askQuestions(node.noNode, node);
             }
         }
+    }
+
+    private void addNewQuestion(QuestionNode node, QuestionNode parent) {
+        System.out.println("What is the name of your object?");
+        QuestionNode answer = new QuestionNode(console.nextLine(), null, null);
+        System.out.println("Please give me a yes/no question that distinguishes between your object and mine:");
+        QuestionNode question = new QuestionNode(console.nextLine(), null, null);
+
+        if (yesTo("And what is the answer for your question?")) {
+            question.yesNode = answer;
+            question.noNode = node;
+        }
+        else {
+            question.yesNode = node;
+            question.noNode = answer;
+        }
+
+        if (parent == null) {
+            root = question;
+        }
+        else {
+            if (parent.yesNode == node) {
+                parent.yesNode = question;
+            } else {
+                parent.noNode = question;
+            }
+        }
+    }
+
+    public boolean yesTo(String prompt) {
+        System.out.print(prompt + " (y/n)? ");
+        String response = console.nextLine().trim().toLowerCase();
+        while (!response.equals("y") && !response.equals("n")) {
+            System.out.println("Please answer y or n.");
+            System.out.print(prompt + " (y/n)? ");
+            response = console.nextLine().trim().toLowerCase();
+        }
+
+        return response.equals("y");
     }
 
     public void write(PrintStream printStream) {
@@ -69,36 +108,6 @@ public class QuestionTree {
             write(printStream, subtree.yesNode);
             write(printStream, subtree.noNode);
         }
-    }
-
-    private QuestionNode addNewQuestion(QuestionNode subtree) {
-        System.out.println("What is the name of your object?");
-        String object = console.nextLine();
-        System.out.println("Please give me a yes/no question that\ndistinguishes between your object\n" +
-                "and mine--> ");
-        String question = console.nextLine();
-        String peviousObject = subtree.data;
-        if (yesTo("And what is the answer for your object?")) {
-            subtree.noNode = new QuestionNode(object, null, null);
-        }
-        else {
-            subtree.noNode = new QuestionNode(object, null, null);
-        }
-        subtree.data = question;
-
-        return subtree;
-    }
-
-    public boolean yesTo(String prompt) {
-        System.out.print(prompt + " (y/n)? ");
-        String response = console.nextLine().trim().toLowerCase();
-        while (!response.equals("y") && !response.equals("n")) {
-            System.out.println("Please answer y or n.");
-            System.out.print(prompt + " (y/n)? ");
-            response = console.nextLine().trim().toLowerCase();
-        }
-
-        return response.equals("y");
     }
 
     public void printPreorder() {

@@ -2,6 +2,10 @@ Q:
 Is it an animal?
 Q:
 Does it hop?
+Q:
+szor?
+A:
+nyuszi
 A:
 frog
 A:
