@@ -5,9 +5,7 @@ public class QuestionNode {
     public QuestionNode noNode;
     public String data;
 
-    public QuestionNode(){
-
-    }
+    public QuestionNode(){}
 
     public QuestionNode(String data, QuestionNode yesNode, QuestionNode noNode) {
         this.yesNode = yesNode;
