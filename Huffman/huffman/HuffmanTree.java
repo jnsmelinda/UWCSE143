@@ -17,6 +17,7 @@ public class HuffmanTree {
                 queue.add(new HuffmanNode(count[i], i, null, null));
             }
         }
+        queue.add(new HuffmanNode(1, count.length, null, null));
 
         while (queue.size() != 1) {
             HuffmanNode first = queue.remove();

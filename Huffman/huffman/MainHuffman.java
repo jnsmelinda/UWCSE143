@@ -10,7 +10,7 @@ public class MainHuffman {
 
         int CHAR_MAX = 256;
 
-        FileInputStream input = new FileInputStream("huffman/test.txt");
+        FileInputStream input = new FileInputStream("huffman/hamlet.txt");
         int[] count = new int[CHAR_MAX];
         int n = input.read();
         while (n != -1) {
@@ -18,7 +18,7 @@ public class MainHuffman {
             n = input.read();
         }
         HuffmanTree ht = new HuffmanTree(count);
-        PrintStream output = new PrintStream(new File("huffman/test.code"));
+        PrintStream output = new PrintStream(new File("huffman/hamlet.code"));
         ht.write(output);
 
     }
