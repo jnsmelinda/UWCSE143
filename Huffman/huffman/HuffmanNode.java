@@ -3,15 +3,17 @@ package huffman;
 public class HuffmanNode implements Comparable<HuffmanNode> {
 
     public int frequency;
+    public int letter;
     public HuffmanNode node1;
     public HuffmanNode node0;
 
     public HuffmanNode() {}
 
-    public HuffmanNode(int frequency, HuffmanNode node1, HuffmanNode node0) {
+    public HuffmanNode(int frequency, int letter, HuffmanNode node0, HuffmanNode node1) {
+        this.letter = letter;
         this.frequency = frequency;
-        this.node1 = node1;
         this.node0 = node0;
+        this.node1 = node1;
     }
 
     @Override
@@ -21,10 +23,10 @@ public class HuffmanNode implements Comparable<HuffmanNode> {
 
     @Override
     public String toString() {
-        return "HuffmanNode{" +
-                "frequency=" + frequency +
-                ", node1=" + node1 +
-                ", node0=" + node0 +
+        return "\nHuffmanNode{" +
+                "       frequency=" + frequency +
+                ",      node1=" + node1 +
+                ",      node0=" + node0 +
                 '}';
     }
 }
