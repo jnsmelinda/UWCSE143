@@ -1,9 +1,11 @@
-// Decode prompts the user for the name of a binary (encoded) input file and a
+package huffman;// Decode prompts the user for the name of a binary (encoded) input file and a
 // code file name and produces as output a text file containing the original
 // file.  Assumes that the binary input file was creaed by Encode.
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.Scanner;
 
 public class Decode {
     public static final int CHAR_MAX = 256;  // max char value to be encoded
