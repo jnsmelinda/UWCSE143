@@ -24,9 +24,10 @@ public class HuffmanNode implements Comparable<HuffmanNode> {
     @Override
     public String toString() {
         return "\nHuffmanNode{" +
-                "       frequency=" + frequency +
-                ",      node1=" + node1 +
-                ",      node0=" + node0 +
+                "  \nfrequency=" + frequency +
+                ", \nletter=" + letter +
+                ", \nnode1=" + node1 +
+                ", \nnode0=" + node0 +
                 '}';
     }
 }

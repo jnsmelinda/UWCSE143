@@ -33,7 +33,31 @@ public class HuffmanTree {
 //        }
     }
 
-    public HuffmanTree(Scanner codeInput) {
+    public HuffmanTree(Scanner input) {
+        HuffmanNode parent = new HuffmanNode(0, 0, new HuffmanNode(), new HuffmanNode());
+
+        while (input.hasNextLine()){
+            int n = Integer.parseInt(input.nextLine());
+            String code = input.nextLine();
+            for (int i = 0; i < code.length(); i++) {
+                if (code.charAt(i) == 0) {
+                    parent.node0 = new HuffmanNode(0, 0, new HuffmanNode(), null);
+                    if (i == code.length() - 1) {
+                        parent.node0.letter = n;
+                    }
+                    parent = parent.node0;
+                }
+                else {
+                    parent.node1 = new HuffmanNode(0, 0, null, new HuffmanNode());
+                    if (i == code.length() - 1) {
+                        parent.node1.letter = n;
+                    }
+                    parent = parent.node1;
+                }
+            }
+        }
+        System.out.println(parent);
+
     }
 
     public void write(PrintStream output) {
