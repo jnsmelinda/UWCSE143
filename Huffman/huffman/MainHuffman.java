@@ -20,6 +20,8 @@ public class MainHuffman {
 
         Scanner codeInput = new Scanner(new File("huffman/test.code"));
         HuffmanTree decodeTree = new HuffmanTree(codeInput);
+        decodeTree.printPreorder();
+
 
 
     }

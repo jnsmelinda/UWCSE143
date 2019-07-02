@@ -40,6 +40,7 @@ public class Encode {
                 System.out.println("exiting...");
                 System.exit(1);
             }
+            System.out.println(codes[n]);
             writeString(codes[n], output);
             n = input.read();
         }

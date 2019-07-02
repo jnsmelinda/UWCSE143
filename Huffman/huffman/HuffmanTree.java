@@ -34,30 +34,32 @@ public class HuffmanTree {
     }
 
     public HuffmanTree(Scanner input) {
-        HuffmanNode parent = new HuffmanNode(0, 0, new HuffmanNode(), new HuffmanNode());
-
-        while (input.hasNextLine()){
-            int n = Integer.parseInt(input.nextLine());
+        root = new HuffmanNode();
+        while (input.hasNextLine()) {
+            HuffmanNode current = root;
+            int letter = Integer.parseInt(input.nextLine());
             String code = input.nextLine();
             for (int i = 0; i < code.length(); i++) {
-                if (code.charAt(i) == 0) {
-                    parent.node0 = new HuffmanNode(0, 0, new HuffmanNode(), null);
-                    if (i == code.length() - 1) {
-                        parent.node0.letter = n;
+                if (code.charAt(i) == '0') {
+                    if (current.node0 == null) {
+                        current.node0 = new HuffmanNode();
+                        if (i == code.length() - 1) {
+                            current.node0.letter = letter;
+                        }
                     }
-                    parent = parent.node0;
+                    current = current.node0;
                 }
                 else {
-                    parent.node1 = new HuffmanNode(0, 0, null, new HuffmanNode());
-                    if (i == code.length() - 1) {
-                        parent.node1.letter = n;
+                    if (current.node1 == null) {
+                        current.node1 = new HuffmanNode();
+                        if (i == code.length() - 1) {
+                            current.node1.letter = letter;
+                        }
                     }
-                    parent = parent.node1;
+                    current = current.node1;
                 }
             }
         }
-        System.out.println(parent);
-
     }
 
     public void write(PrintStream output) {
@@ -75,7 +77,37 @@ public class HuffmanTree {
         }
     }
 
-    public void decode(BitInputStream input, PrintStream output, int charMax) {
+    public void decode(BitInputStream input, PrintStream output, int eof) {
+        HuffmanNode current = root;
+        for (int bit = input.readBit(); bit != -1; bit = input.readBit()) {
+            if (bit == 0) {
+                current = current.node0;
+            }
+            else {
+                current = current.node1;
+            }
+            if (current.node0 == null && current.node1 == null) {
+                if (current.letter != eof) {
+                    output.write(current.letter);
+                    current = root;
+                }
+                else {
+                    break;
+                }
+            }
+        }
+    }
 
+    public void printPreorder() {
+        System.out.print("preorder:");
+        printPreorder(root);
+    }
+
+    private void printPreorder(HuffmanNode root) {
+        if (root != null) {
+            System.out.print(" " + root.letter);
+            printPreorder(root.node0);
+            printPreorder(root.node1);
+        }
     }
 }
