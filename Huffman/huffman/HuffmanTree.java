@@ -79,7 +79,8 @@ public class HuffmanTree {
 
     public void decode(BitInputStream input, PrintStream output, int eof) {
         HuffmanNode current = root;
-        for (int bit = input.readBit(); bit != -1; bit = input.readBit()) {
+        int bit = input.readBit();
+        while (bit != -1) {
             if (bit == 0) {
                 current = current.node0;
             }
@@ -95,6 +96,8 @@ public class HuffmanTree {
                     break;
                 }
             }
+
+            bit = input.readBit();
         }
     }
 
